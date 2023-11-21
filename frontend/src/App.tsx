@@ -66,7 +66,12 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route
                         path="/list"
-                        element={<NoteList availableTags={tags} />}
+                        element={
+                            <NoteList
+                                availableTags={tags}
+                                notes={notesWithTags}
+                            />
+                        }
                     />
                     <Route
                         path="/new"

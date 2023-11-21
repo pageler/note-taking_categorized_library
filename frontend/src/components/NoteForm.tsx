@@ -33,7 +33,7 @@ export const NoteForm = ({
             tags: selectedTags,
         });
 
-        navigate("..");
+        navigate("/list");
     }
 
     return (
