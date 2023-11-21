@@ -113,7 +113,7 @@ export const NoteForm = ({
                         Save Note
                     </Button>
 
-                    <Link to="..">
+                    <Link to="/list">
                         <Button type="button" variant="outline-secondary">
                             Cancel
                         </Button>

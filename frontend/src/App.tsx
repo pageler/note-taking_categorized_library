@@ -64,7 +64,10 @@ function App() {
             <div>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/list" element={<NoteList />} />
+                    <Route
+                        path="/list"
+                        element={<NoteList availableTags={tags} />}
+                    />
                     <Route
                         path="/new"
                         element={
