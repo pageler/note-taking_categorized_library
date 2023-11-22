@@ -57,9 +57,11 @@ function App() {
     }
 
     function onDeleteNote(id: string) {
-        setNotes((prevNotes) => {
-            return prevNotes.filter((note) => note.id !== id);
-        });
+        if (window.confirm("'Delete Note' cannot be undone, are you sure?")) {
+            setNotes((prevNotes) => {
+                return prevNotes.filter((note) => note.id !== id);
+            });
+        }
     }
 
     function onUpdateNote(id: string, { tags, ...data }: NoteData) {

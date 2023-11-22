@@ -33,7 +33,7 @@ export const NoteForm = ({
             tags: selectedTags,
         });
 
-        navigate("/list");
+        navigate(-1);
     }
 
     return (
@@ -53,7 +53,7 @@ export const NoteForm = ({
 
                     <Col>
                         <Form.Group controlId="tags">
-                            <Form.Label>Tags</Form.Label>
+                            <Form.Label>Category Tags</Form.Label>
                             <CreatableReactSelect
                                 isMulti
                                 onCreateOption={(label) => {

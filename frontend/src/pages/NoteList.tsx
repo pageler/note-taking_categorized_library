@@ -97,7 +97,9 @@ export const NoteList = ({
                     </Col>
                     <Col>
                         <Form.Group controlId="tags">
-                            <Form.Label>Search Cards By Tags:</Form.Label>
+                            <Form.Label>
+                                Search Cards By Category Tags:
+                            </Form.Label>
                             <ReactSelect
                                 isMulti
                                 options={availableTags.map((tag) => {
@@ -172,6 +174,8 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
                         </Stack>
                     )}
                 </Stack>
+
+                <footer className="blockquote-footer">Created On - date</footer>
             </Card.Body>
         </Card>
     );
