@@ -7,6 +7,7 @@ import { NoteDetails } from "./pages/NoteDetails";
 import { EditNote } from "./pages/EditNote";
 import { useMemo, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
+import { NoteLayout } from "./components/NoteLayout";
 
 export type Note = {
     id: string;
@@ -52,6 +53,12 @@ function App() {
                 ...prevNotes,
                 { ...data, id: uuidV4(), tagIds: tags.map((tag) => tag.id) },
             ];
+        });
+    }
+
+    function onDeleteNote(id: string) {
+        setNotes((prevNotes) => {
+            return prevNotes.filter((note) => note.id !== id);
         });
     }
 
@@ -103,8 +110,16 @@ function App() {
                             />
                         }
                     />
-                    <Route path="/:id">
-                        <Route index element={<NoteDetails />} />
+                    <Route
+                        path="/:id"
+                        element={<NoteLayout notes={notesWithTags} />}
+                    >
+                        <Route
+                            index
+                            element={
+                                <NoteDetails onDeleteNote={onDeleteNote} />
+                            }
+                        />
                         <Route path="edit" element={<EditNote />} />
                     </Route>
                     <Route path="*" element={<Navigate to="/list" />} />
