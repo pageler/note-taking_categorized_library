@@ -51,7 +51,7 @@ export const NoteList = ({
             return (
                 (title === "" ||
                     note.title.toLowerCase().includes(title.toLowerCase())) &&
-                (selectedTags.length > 0 ||
+                (selectedTags.length === 0 ||
                     selectedTags.every((tag) =>
                         note.tags.some((noteTag) => noteTag.id === tag.id)
                     ))
@@ -87,7 +87,7 @@ export const NoteList = ({
                 <Row className="mb-4">
                     <Col>
                         <Form.Group controlId="title">
-                            <Form.Label>Search By Title</Form.Label>
+                            <Form.Label>Search Cards By Title:</Form.Label>
                             <Form.Control
                                 type="text"
                                 value={title}
@@ -97,10 +97,13 @@ export const NoteList = ({
                     </Col>
                     <Col>
                         <Form.Group controlId="tags">
-                            <Form.Label>Search By Tags</Form.Label>
+                            <Form.Label>Search Cards By Tags:</Form.Label>
                             <ReactSelect
                                 isMulti
                                 options={availableTags.map((tag) => {
+                                    return { label: tag.label, value: tag.id };
+                                })}
+                                value={selectedTags.map((tag) => {
                                     return { label: tag.label, value: tag.id };
                                 })}
                                 onChange={(tags) => {
@@ -183,7 +186,7 @@ function EditTagsModal({
 }: EditTagsModalProps) {
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header>
+            <Modal.Header closeButton>
                 <Modal.Title>Edit Category Tags</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -205,7 +208,9 @@ function EditTagsModal({
                                     <Button
                                         variant="outline-danger"
                                         onClick={() => onDeleteTag(tag.id)}
-                                    ></Button>
+                                    >
+                                        &times;
+                                    </Button>
                                 </Col>
                             </Row>
                         ))}

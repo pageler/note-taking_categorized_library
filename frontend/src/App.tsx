@@ -62,6 +62,22 @@ function App() {
         });
     }
 
+    function onUpdateNote(id: string, { tags, ...data }: NoteData) {
+        setNotes((prevNotes) => {
+            return prevNotes.map((note) => {
+                if (note.id === id) {
+                    return {
+                        ...note,
+                        ...data,
+                        tagIds: tags.map((tag) => tag.id),
+                    };
+                } else {
+                    return note;
+                }
+            });
+        });
+    }
+
     function onAddTag(tag: Tag) {
         setTags((prevTags) => [...prevTags, tag]);
     }
@@ -120,7 +136,16 @@ function App() {
                                 <NoteDetails onDeleteNote={onDeleteNote} />
                             }
                         />
-                        <Route path="edit" element={<EditNote />} />
+                        <Route
+                            path="edit"
+                            element={
+                                <EditNote
+                                    onSubmit={onUpdateNote}
+                                    onAddTag={onAddTag}
+                                    availableTags={tags}
+                                />
+                            }
+                        />
                     </Route>
                     <Route path="*" element={<Navigate to="/list" />} />
                 </Routes>
