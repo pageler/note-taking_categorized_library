@@ -2,9 +2,11 @@ const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const notes = require("./data/notes");
+const connectDB = require("./config/db");
 
 const app = express();
 dotenv.config();
+connectDB();
 
 app.get("/", (req, res) => {
     res.send("Note Taking Categorize Library API is listening of PORT 5000");
