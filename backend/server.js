@@ -13,7 +13,7 @@ app.get("/api/notes", (req, res) => {
     res.json(notes);
 });
 app.get("/api/notes/:id", (req, res) => {
-    const note = notes.find((note) => note._id === req.params.id);
+    const note = notes.find((note) => note.id === req.params.id);
     res.send(note);
 });
 

@@ -5,9 +5,10 @@ import { NoteList } from "./pages/NoteList";
 import { NewNote } from "./pages/NewNote";
 import { NoteDetails } from "./pages/NoteDetails";
 import { EditNote } from "./pages/EditNote";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { NoteLayout } from "./components/NoteLayout";
+import axios from "axios";
 
 export type Note = {
     id: string;
@@ -101,6 +102,21 @@ function App() {
             return prevTags.filter((tag) => tag.id !== id);
         });
     }
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const { data } = await axios.get("/api/notes");
+                setNotes(data);
+
+                console.log("data", data);
+            } catch (error: any) {
+                console.log(error);
+            }
+        };
+
+        fetchNotes();
+    }, []);
 
     return (
         <>
