@@ -9,6 +9,8 @@ import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { NoteLayout } from "./components/NoteLayout";
 import axios from "axios";
+import { LoginPage } from "./pages/loginPage/LoginPage";
+import { RegisterPage } from "./pages/registerPage/RegisterPage";
 
 export type Note = {
     id: string;
@@ -103,26 +105,28 @@ function App() {
         });
     }
 
-    useEffect(() => {
-        const fetchNotes = async () => {
-            try {
-                const { data } = await axios.get("/api/notes");
-                setNotes(data);
+    // useEffect(() => {
+    //     const fetchNotes = async () => {
+    //         try {
+    //             const { data } = await axios.get("/api/notes");
+    //             setNotes(data);
 
-                console.log("data", data);
-            } catch (error: any) {
-                console.log(error);
-            }
-        };
+    //             console.log("data", data);
+    //         } catch (error: any) {
+    //             console.log(error);
+    //         }
+    //     };
 
-        fetchNotes();
-    }, []);
+    //     fetchNotes();
+    // }, []);
 
     return (
         <>
             <div>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                     <Route
                         path="/list"
                         element={
