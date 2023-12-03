@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import { NoteForm } from "../components/NoteForm";
 import { NoteData, Tag } from "../App";
 import { useNote } from "../components/NoteLayout";
+import { Header } from "../components/Header";
 
 type EditNoteProps = {
     onSubmit: (id: string, data: NoteData) => void;
@@ -17,20 +18,23 @@ export const EditNote = ({
     const note = useNote();
 
     return (
-        <Container className="my-4">
-            <h1 className="my-4" style={{ color: "navy" }}>
-                <u>Edit Note</u>
-            </h1>
+        <>
+            <Header />
+            <Container className="my-4">
+                <h1 className="my-4" style={{ color: "navy" }}>
+                    <u>Edit Note</u>
+                </h1>
 
-            <NoteForm
-                onSubmit={(data) => onSubmit(note.id, data)}
-                onAddTag={onAddTag}
-                availableTags={availableTags}
-                // populate defaultValue NoteForm:
-                title={note.title}
-                tags={note.tags}
-                markdown={note.markdown}
-            />
-        </Container>
+                <NoteForm
+                    onSubmit={(data) => onSubmit(note.id, data)}
+                    onAddTag={onAddTag}
+                    availableTags={availableTags}
+                    // populate defaultValue NoteForm:
+                    title={note.title}
+                    tags={note.tags}
+                    markdown={note.markdown}
+                />
+            </Container>
+        </>
     );
 };

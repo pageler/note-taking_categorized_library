@@ -90,7 +90,7 @@ export const NoteForm = ({
                     <Form.Control
                         required
                         as="textarea"
-                        rows={15}
+                        rows={12}
                         ref={markdownRef}
                         defaultValue={markdown}
                     />

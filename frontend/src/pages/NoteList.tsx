@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
 import { Tag } from "../App";
 import styles from "../components/NoteList.module.css";
+import { Header } from "../components/Header";
 
 type NoteListProps = {
     availableTags: Tag[];
@@ -60,90 +61,101 @@ export const NoteList = ({
     }, [title, selectedTags, notes]);
 
     return (
-        <Container className="my-4">
-            <Row className="align-items-center my-4">
-                <Col>
-                    <h1 style={{ color: "navy" }}>
-                        <u>Your Note List</u>
-                    </h1>
-                </Col>
-
-                <Col xs="auto">
-                    <Stack direction="horizontal" gap={2}>
-                        <Link to="/new">
-                            <Button variant="primary">Create New Note</Button>
-                        </Link>
-                        <Button
-                            variant="outline-secondary"
-                            onClick={() => setEditTagsModalIsOpen(true)}
-                        >
-                            Edit Category Tags
-                        </Button>
-                    </Stack>
-                </Col>
-            </Row>
-
-            <Form>
-                <Row className="mb-4">
+        <>
+            <Header />
+            <Container className="my-4">
+                <Row className="align-items-center my-4">
                     <Col>
-                        <Form.Group controlId="title">
-                            <Form.Label>Search Cards By Title:</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                            />
-                        </Form.Group>
+                        <h1 style={{ color: "navy" }}>
+                            <u>Your Note List</u>
+                        </h1>
                     </Col>
-                    <Col>
-                        <Form.Group controlId="tags">
-                            <Form.Label>
-                                Search Cards By Category Tags:
-                            </Form.Label>
-                            <ReactSelect
-                                isMulti
-                                options={availableTags.map((tag) => {
-                                    return { label: tag.label, value: tag.id };
-                                })}
-                                value={selectedTags.map((tag) => {
-                                    return { label: tag.label, value: tag.id };
-                                })}
-                                onChange={(tags) => {
-                                    setSelectedTags(
-                                        tags.map((tag) => {
-                                            return {
-                                                label: tag.label,
-                                                id: tag.value,
-                                            };
-                                        })
-                                    );
-                                }}
-                            />
-                        </Form.Group>
+
+                    <Col xs="auto">
+                        <Stack direction="horizontal" gap={2}>
+                            <Link to="/new">
+                                <Button variant="primary">
+                                    Create New Note
+                                </Button>
+                            </Link>
+                            <Button
+                                variant="outline-secondary"
+                                onClick={() => setEditTagsModalIsOpen(true)}
+                            >
+                                Edit Category Tags
+                            </Button>
+                        </Stack>
                     </Col>
                 </Row>
-            </Form>
 
-            <Row xs={1} sm={2} md={3} lg={4} className="g-3">
-                {filteredNotes.map((note) => (
-                    <Col key={note.id}>
-                        <NoteCard
-                            id={note.id}
-                            title={note.title}
-                            tags={note.tags}
-                        />
-                    </Col>
-                ))}
-            </Row>
+                <Form>
+                    <Row className="mb-4">
+                        <Col>
+                            <Form.Group controlId="title">
+                                <Form.Label>Search Cards By Title:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="tags">
+                                <Form.Label>
+                                    Search Cards By Category Tags:
+                                </Form.Label>
+                                <ReactSelect
+                                    isMulti
+                                    options={availableTags.map((tag) => {
+                                        return {
+                                            label: tag.label,
+                                            value: tag.id,
+                                        };
+                                    })}
+                                    value={selectedTags.map((tag) => {
+                                        return {
+                                            label: tag.label,
+                                            value: tag.id,
+                                        };
+                                    })}
+                                    onChange={(tags) => {
+                                        setSelectedTags(
+                                            tags.map((tag) => {
+                                                return {
+                                                    label: tag.label,
+                                                    id: tag.value,
+                                                };
+                                            })
+                                        );
+                                    }}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                </Form>
 
-            <EditTagsModal
-                show={editTagsModalIsOpen}
-                handleClose={() => setEditTagsModalIsOpen(false)}
-                availableTags={availableTags}
-                onUpdateTag={onUpdateTag}
-                onDeleteTag={onDeleteTag}
-            />
-        </Container>
+                <Row xs={1} sm={2} md={3} lg={4} className="g-3">
+                    {filteredNotes.map((note) => (
+                        <Col key={note.id}>
+                            <NoteCard
+                                id={note.id}
+                                title={note.title}
+                                tags={note.tags}
+                            />
+                        </Col>
+                    ))}
+                </Row>
+
+                <EditTagsModal
+                    show={editTagsModalIsOpen}
+                    handleClose={() => setEditTagsModalIsOpen(false)}
+                    availableTags={availableTags}
+                    onUpdateTag={onUpdateTag}
+                    onDeleteTag={onDeleteTag}
+                />
+            </Container>
+        </>
     );
 };
 
